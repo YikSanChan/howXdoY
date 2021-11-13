@@ -1,4 +1,7 @@
 import Head from "next/head";
+import React from "react";
+
+import Select from "react-select";
 
 export default function Home() {
   return (
@@ -12,13 +15,22 @@ export default function Home() {
         <h1 className="text-6xl font-bold">
           Welcome to <a className="text-blue-600">How X Do Y</a>
         </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{" "}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
-        </p>
+        <div className="w-full">
+          <Select
+            defaultValue={[
+              { value: "ocean", label: "Ocean", color: "#00B8D9" },
+            ]}
+            isMulti
+            name="colors"
+            options={[
+              { value: "ocean", label: "Ocean", color: "#00B8D9" },
+              { value: "blue", label: "Blue", color: "#0052CC" },
+              { value: "purple", label: "Purple", color: "#5243AA" },
+            ]}
+            className="basic-multi-select"
+            classNamePrefix="select"
+          />
+        </div>
       </main>
 
       <footer className="flex items-center justify-center w-full h-24 border-t">
@@ -28,8 +40,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
+          Built by @yiksanchan
         </a>
       </footer>
     </div>
