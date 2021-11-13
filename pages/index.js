@@ -3,6 +3,15 @@ import React from "react";
 
 import Select from "react-select";
 
+const data = `Uber,eng.uber.com
+Airbnb,medium.com/airbnb-engineering
+Lyft,eng.lyft.com`;
+
+const blogs = data.split("\n").map((s) => {
+  const a = s.split(",");
+  return {label: a[0], value: a[1]};
+});
+
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -19,16 +28,10 @@ export default function Home() {
         <div className="w-full">
           <p>How</p>
           <Select
-            defaultValue={[
-              { value: "ocean", label: "Ocean", color: "#00B8D9" },
-            ]}
+            defaultValue={blogs}
             isMulti
             name="colors"
-            options={[
-              { value: "ocean", label: "Ocean", color: "#00B8D9" },
-              { value: "blue", label: "Blue", color: "#0052CC" },
-              { value: "purple", label: "Purple", color: "#5243AA" },
-            ]}
+            options={blogs}
             className="basic-multi-select"
             classNamePrefix="select"
           />
