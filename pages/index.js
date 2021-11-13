@@ -2,21 +2,18 @@ import Head from "next/head";
 import React from "react";
 
 import Select from "react-select";
+import fs from "fs";
+import path from "path";
 
-// TODO: load static file
-const data = `Uber,eng.uber.com
-Airbnb,medium.com/airbnb-engineering
-Lyft,eng.lyft.com
-Pinterest,medium.com/pinterest-engineering
-Netflix,netflixtechblog.com
-Twitter,blog.twitter.com/engineering
-Facebook,engineering.fb.com/`;
-
-// TODO: order by label
-const blogs = data.split("\n").map((s) => {
-  const a = s.split(",");
-  return { label: a[0], value: a[1] };
-});
+// read blog data from blogs.csv
+function loadBlogs() {
+  const filePath = path.join(process.cwd(), "blogs.csv");
+  const fileContents = fs.readFileSync(filePath, "utf8");
+  return fileContents.split("\n").map((s) => {
+    const a = s.split(",");
+    return { label: a[0], value: a[1] };
+  });
+}
 
 // TODO: it makes no sense when sites=[]
 function getGoogleSearchQuery(term, sites) {
@@ -28,7 +25,7 @@ function getGoogleSearchQuery(term, sites) {
 }
 
 // TODO: understand and cleanup class names
-export default function Home() {
+export default function Home({ blogs }) {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedBlogs, setSelectedBlogs] = React.useState(blogs);
   return (
@@ -82,4 +79,13 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const blogs = loadBlogs();
+  return {
+    props: {
+      blogs: blogs,
+    },
+  };
 }
