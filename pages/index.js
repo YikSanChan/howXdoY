@@ -11,11 +11,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+      <main className="flex flex-col items-center justify-center w-50 flex-1 px-20">
         <h1 className="text-6xl font-bold">
           Welcome to <a className="text-blue-600">How X Do Y</a>
         </h1>
+
         <div className="w-full">
+          <p>How</p>
           <Select
             defaultValue={[
               { value: "ocean", label: "Ocean", color: "#00B8D9" },
@@ -30,6 +32,13 @@ export default function Home() {
             className="basic-multi-select"
             classNamePrefix="select"
           />
+          <p>Do</p>
+          <div className="flex flex-col">
+            <input
+              className="border border-gray-300 rounded px-2 h-10"
+              type="text"
+            />
+          </div>
         </div>
       </main>
 
