@@ -33,18 +33,6 @@ function shouldAllowSearch(term, sites) {
 // reference: https://react-select.com/home#custom-styles
 // gray-300 eq rgb(209, 213, 219)
 const styleConfig = {
-  control: (styles) => {
-    return {
-      ...styles,
-      ":hover": {
-        borderColor: "black",
-      },
-      // TODO: when focused, the border color should be black
-      ":focus": {
-        borderColor: "black",
-      },
-    };
-  },
   option: (styles, { isFocused }) => ({
     ...styles,
     backgroundColor: isFocused ? "rgb(209, 213, 219)" : "white",
