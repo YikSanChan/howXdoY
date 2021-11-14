@@ -83,6 +83,7 @@ export default function Home({ blogs, defaultBlogs }) {
       <Head>
         <title>How X Do Y</title>
         <link rel="icon" href="/favicon.ico" />
+        <script async src="https://cdn.splitbee.io/sb.js"></script>
       </Head>
 
       <main className="flex items-center flex-1 w-1/3">
