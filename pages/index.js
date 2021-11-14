@@ -59,8 +59,6 @@ const styleConfig = {
   }),
 };
 
-// TODO: understand and cleanup class names
-// TODO: how to leave comments
 export default function Home({ blogs, defaultBlogs }) {
   // autofocus input, see https://reactjs.org/docs/hooks-reference.html#useref
   const inputElement = React.useRef(null);
