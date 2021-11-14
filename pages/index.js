@@ -57,6 +57,8 @@ const Button = ({ disabled, query }) => {
 
 // TODO: understand and cleanup class names
 // TODO: how to leave comments
+// TODO: hover border color should be black
+// TODO: press enter to search
 export default function Home({ blogs }) {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedBlogs, setSelectedBlogs] = React.useState(blogs);
