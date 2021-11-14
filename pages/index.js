@@ -39,8 +39,8 @@ function buttonDisabled(term, sites) {
 const Button = ({ disabled, query }) => {
   if (disabled) {
     return (
-      <button className="text-2xl font-bold text-gray-300 hover:none" disabled>
-        Search !
+      <button className="text-xl font-bold text-gray-300 hover:none" disabled>
+        Search!
       </button>
     );
   } else {
@@ -49,7 +49,7 @@ const Button = ({ disabled, query }) => {
         className="text-xl font-bold hover:bg-black hover:text-white"
         onClick={(e) => window.open(query)}
       >
-        Search !
+        Search!
       </button>
     );
   }
