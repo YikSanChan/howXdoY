@@ -19,11 +19,11 @@ function loadBlogs() {
 }
 
 function getGoogleSearchQuery(term, sites) {
-  return encodeURI(
-    `https://google.com/search?q=${term} (${sites
-      .map((site) => `site:${site}`)
-      .join(" OR ")})`
-  );
+  const domainScope =
+    sites.length === 1
+      ? `site:${sites[0]}`
+      : `(${sites.map((site) => `site:${site}`).join(" OR ")})`;
+  return encodeURI(`https://google.com/search?q=${term} ${domainScope}`);
 }
 
 function allowSearch(term, sites) {
