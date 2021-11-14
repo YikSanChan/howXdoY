@@ -33,6 +33,13 @@ function allowSearch(term, sites) {
 // reference: https://react-select.com/home#custom-styles
 // gray-300 eq rgb(209, 213, 219)
 const styleConfig = {
+  // TODO: when focused, the border color should be black
+  // control: (styles, { isFocused }) => {
+  //   return {
+  //     ...styles,
+  //     borderColor: isFocused ? "black" : "white",
+  //   }
+  // },
   option: (styles, { isFocused }) => {
     return {
       ...styles,
@@ -50,7 +57,7 @@ const styleConfig = {
 
 // TODO: understand and cleanup class names
 // TODO: how to leave comments
-// TODO: hover border color should be black
+// TODO: onFocus border color should be black
 export default function Home({ blogs }) {
   const defaultBlogs = blogs.slice(0, 2);
 
