@@ -26,8 +26,8 @@ function getGoogleSearchQuery(term, sites) {
   return encodeURI(`https://google.com/search?q=${term} ${domainScope}`);
 }
 
-function allowSearch(term, sites) {
-  return term && sites.length > 0;
+function shouldAllowSearch(term, sites) {
+  return term && term.length > 2 && sites.length > 0;
 }
 
 // reference: https://react-select.com/home#custom-styles
@@ -73,6 +73,12 @@ export default function Home({ blogs }) {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedBlogs, setSelectedBlogs] = React.useState(defaultBlogs);
 
+  const allowSearch = shouldAllowSearch(searchTerm, selectedBlogs);
+  const query = getGoogleSearchQuery(
+    searchTerm,
+    selectedBlogs.map((blog) => blog.value)
+  );
+
   // autofocus input, see https://reactjs.org/docs/hooks-reference.html#useref
   const inputElement = React.useRef(null);
   React.useEffect(() => {
@@ -103,6 +109,7 @@ export default function Home({ blogs }) {
             }}
           />
           <p className="my-3 text-3xl font-bold">Do</p>
+          {/* https://tailwindui.com/components/application-ui/forms/input-groups */}
           <div className="relative rounded-md">
             <input
               type="text"
@@ -111,21 +118,17 @@ export default function Home({ blogs }) {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyPress={(e) => {
-                if (
-                  e.key === "Enter" &&
-                  allowSearch(searchTerm, selectedBlogs)
-                ) {
-                  window.open(
-                    getGoogleSearchQuery(
-                      searchTerm,
-                      selectedBlogs.map((blog) => blog.value)
-                    )
-                  );
+                if (e.key === "Enter" && allowSearch) {
+                  window.open(query);
                 }
               }}
             />
             <div className="absolute inset-y-0 right-0 flex items-center">
-              <button className="h-full px-1 text-gray-300 rounded-md pointer-events-none">
+              <button
+                className={`h-full px-1 text-gray-${
+                  allowSearch ? "500" : "300"
+                } rounded-md pointer-events-none`}
+              >
                 ↵ Enter
               </button>
             </div>
