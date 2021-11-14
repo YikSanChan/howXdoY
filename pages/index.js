@@ -46,7 +46,7 @@ const Button = ({ disabled, query }) => {
   } else {
     return (
       <button
-        className="text-2xl font-bold hover:bg-black hover:text-white"
+        className="text-xl font-bold hover:bg-black hover:text-white"
         onClick={(e) => window.open(query)}
       >
         Search !
@@ -70,7 +70,7 @@ export default function Home({ blogs }) {
 
       <main className="flex items-center flex-1 w-1/4">
         <div className="w-full">
-          <p className="my-3 text-2xl font-bold">How</p>
+          <p className="my-3 text-3xl font-bold">How</p>
           <Select
             defaultValue={blogs.slice(0, 2)}
             isMulti
@@ -81,7 +81,7 @@ export default function Home({ blogs }) {
               setSelectedBlogs(selected);
             }}
           />
-          <p className="my-3 text-2xl font-bold">Do</p>
+          <p className="my-3 text-3xl font-bold">Do</p>
           <div className="flex flex-col">
             <input
               className="border border-gray-300 rounded px-3 h-10"
