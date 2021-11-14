@@ -26,42 +26,19 @@ function getGoogleSearchQuery(term, sites) {
   );
 }
 
-function buttonDisabled(term, sites) {
-  if (!term) {
-    return true;
-  }
-  if (sites.length == 0) {
-    return true;
-  }
-  return false;
+function allowSearch(term, sites) {
+  return term && sites.length > 0;
 }
-
-const Button = ({ disabled, query }) => {
-  if (disabled) {
-    return (
-      <button className="text-xl font-bold text-gray-300 hover:none" disabled>
-        Search!
-      </button>
-    );
-  } else {
-    return (
-      <button
-        className="text-xl font-bold hover:bg-black hover:text-white"
-        onClick={(e) => window.open(query)}
-      >
-        Search!
-      </button>
-    );
-  }
-};
 
 // TODO: understand and cleanup class names
 // TODO: how to leave comments
 // TODO: hover border color should be black
-// TODO: press enter to search
 export default function Home({ blogs }) {
+  const defaultBlogs = blogs.slice(0, 2);
+
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [selectedBlogs, setSelectedBlogs] = React.useState(blogs);
+  const [selectedBlogs, setSelectedBlogs] = React.useState(defaultBlogs);
+  console.log(JSON.stringify(selectedBlogs));
 
   return (
     <div className="flex flex-col items-center min-h-screen">
@@ -74,7 +51,7 @@ export default function Home({ blogs }) {
         <div className="w-full">
           <p className="my-3 text-3xl font-bold">How</p>
           <Select
-            defaultValue={blogs.slice(0, 2)}
+            defaultValue={defaultBlogs}
             isMulti
             name="blogs"
             options={blogs}
@@ -84,22 +61,27 @@ export default function Home({ blogs }) {
             }}
           />
           <p className="my-3 text-3xl font-bold">Do</p>
-          <div className="flex flex-col">
+          <div className="flex flex-row justify-between border-2 border-gray-300 rounded px-2 py-0.5 h-10">
             <input
-              className="border border-gray-300 rounded px-3 h-10"
+              className="flex-1 border-0 focus:none"
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyPress={(e) => {
+                if (
+                  e.key === "Enter" &&
+                  allowSearch(searchTerm, selectedBlogs)
+                ) {
+                  window.open(
+                    getGoogleSearchQuery(
+                      searchTerm,
+                      selectedBlogs.map((blog) => blog.value)
+                    )
+                  );
+                }
+              }}
             />
-          </div>
-          <div className="my-3">
-            <Button
-              disabled={buttonDisabled(searchTerm, selectedBlogs)}
-              query={getGoogleSearchQuery(
-                searchTerm,
-                selectedBlogs.map((blog) => blog.value)
-              )}
-            />
+            <button>↵</button>
           </div>
         </div>
       </main>
