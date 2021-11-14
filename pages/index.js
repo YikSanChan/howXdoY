@@ -36,6 +36,7 @@ const styleConfig = {
   control: (styles) => ({
     ...styles,
     border: "2px solid rgb(209, 213, 219)",
+    borderRadius: "6px",
     boxShadow: "none",
     ":hover": {
       border: "2px solid black",
