@@ -9,10 +9,13 @@ import path from "path";
 function loadBlogs() {
   const filePath = path.join(process.cwd(), "blogs.csv");
   const fileContents = fs.readFileSync(filePath, "utf8");
-  return fileContents.split("\n").map((s) => {
+  const blogs = fileContents.split("\n").map((s) => {
     const a = s.split(",");
     return { label: a[0], value: a[1] };
   });
+  // order by label
+  blogs.sort((a, b) => a.label.localeCompare(b.label));
+  return blogs;
 }
 
 // TODO: it makes no sense when sites=[]
@@ -39,7 +42,7 @@ export default function Home({ blogs }) {
         <div className="w-full">
           <p className="my-3 text-2xl font-bold">How</p>
           <Select
-            defaultValue={blogs}
+            defaultValue={blogs.slice(0, 2)}
             isMulti
             name="blogs"
             options={blogs}
