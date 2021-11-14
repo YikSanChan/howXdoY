@@ -88,7 +88,7 @@ export default function Home({ blogs, defaultBlogs }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex items-center flex-1 w-1/4">
+      <main className="flex items-center flex-1 w-1/3">
         <div className="w-full">
           <p className="my-3 text-3xl font-bold">How</p>
           <Select
