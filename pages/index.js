@@ -38,7 +38,14 @@ export default function Home({ blogs }) {
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedBlogs, setSelectedBlogs] = React.useState(defaultBlogs);
-  console.log(JSON.stringify(selectedBlogs));
+
+  // autofocus input, see https://reactjs.org/docs/hooks-reference.html#useref
+  const inputElement = React.useRef(null);
+  React.useEffect(() => {
+    if (inputElement.current) {
+      inputElement.current.focus();
+    }
+  }, []);
 
   return (
     <div className="flex flex-col items-center min-h-screen">
@@ -63,8 +70,9 @@ export default function Home({ blogs }) {
           <p className="my-3 text-3xl font-bold">Do</p>
           <div className="flex flex-row justify-between border-2 border-gray-300 rounded px-2 py-0.5 h-10">
             <input
-              className="flex-1 border-0 focus:none"
+              className="flex-1 border-0"
               type="text"
+              ref={inputElement}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyPress={(e) => {
