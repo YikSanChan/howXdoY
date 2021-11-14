@@ -21,3 +21,10 @@ Shopify,shopify.engineering
 Slack,slack.engineering
 Stack Overflow,stackoverflow.blog
 Salesforce,engineering.salesforce.com
+Box,medium.com/box-tech-blog
+Coinbase,blog.coinbase.com
+Snap,eng.snap.com/blog
+Square,developer.squareup.com/blog
+Plaid,plaid.com/blog
+PingCAP,en.pingcap.com/blog
+Meituan,tech.meituan.com
