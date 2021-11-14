@@ -40,19 +40,22 @@ const styleConfig = {
   //     borderColor: isFocused ? "black" : "white",
   //   }
   // },
-  option: (styles, { isFocused }) => {
-    return {
-      ...styles,
-      backgroundColor: isFocused ? "rgb(209, 213, 219)" : "white",
-    };
-  },
-  multiValue: (styles) => {
-    return {
-      ...styles,
-      backgroundColor: "white",
-      border: "1px dotted black",
-    };
-  },
+  option: (styles, { isFocused }) => ({
+    ...styles,
+    backgroundColor: isFocused ? "rgb(209, 213, 219)" : "white",
+  }),
+  multiValue: (styles) => ({
+    ...styles,
+    backgroundColor: "white",
+    border: "1px dotted black",
+  }),
+  multiValueRemove: (styles) => ({
+    ...styles,
+    ":hover": {
+      backgroundColor: "black",
+      color: "white",
+    },
+  }),
 };
 
 // TODO: understand and cleanup class names
