@@ -37,7 +37,7 @@ export default function Home({ blogs }) {
 
       <main className="flex items-center flex-1 w-1/4">
         <div className="w-full">
-          <p>How</p>
+          <p className="my-3 text-2xl font-bold">How</p>
           <Select
             defaultValue={blogs}
             isMulti
@@ -48,7 +48,7 @@ export default function Home({ blogs }) {
               setSelectedBlogs(selected);
             }}
           />
-          <p>Do</p>
+          <p className="my-3 text-2xl font-bold">Do</p>
           <div className="flex flex-col">
             <input
               className="border border-gray-300 rounded px-3 h-10"
@@ -57,15 +57,17 @@ export default function Home({ blogs }) {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <a
-            className="text-blue-600"
-            href={getGoogleSearchQuery(
-              searchTerm,
-              selectedBlogs.map((blog) => blog.value)
-            )}
-          >
-            Go!
-          </a>
+          <div className="my-3">
+            <a
+              className="text-blue-600 text-2xl font-bold"
+              href={getGoogleSearchQuery(
+                searchTerm,
+                selectedBlogs.map((blog) => blog.value)
+              )}
+            >
+              ? Click me!
+            </a>
+          </div>
         </div>
       </main>
 
