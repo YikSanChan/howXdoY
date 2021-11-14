@@ -70,7 +70,7 @@ export default function Home({ blogs }) {
           <p className="my-3 text-3xl font-bold">Do</p>
           <div className="flex flex-row justify-between border-2 border-gray-300 rounded px-2 py-0.5 h-10">
             <input
-              className="flex-1 border-0"
+              className="flex-1 outline-none"
               type="text"
               ref={inputElement}
               value={searchTerm}
