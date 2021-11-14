@@ -73,13 +73,13 @@ export default function Home({ blogs }) {
   }, []);
 
   return (
-    <div className="flex flex-col items-center min-h-screen">
+    <div className="flex flex-col items-center min-h-screen font-mono">
       <Head>
         <title>How X Do Y</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex items-center flex-1 w-1/4 font-mono">
+      <main className="flex items-center flex-1 w-1/4">
         <div className="w-full">
           <p className="my-3 text-3xl font-bold">How</p>
           <Select
