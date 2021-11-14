@@ -33,13 +33,18 @@ function allowSearch(term, sites) {
 // reference: https://react-select.com/home#custom-styles
 // gray-300 eq rgb(209, 213, 219)
 const styleConfig = {
-  // TODO: when focused, the border color should be black
-  // control: (styles, { isFocused }) => {
-  //   return {
-  //     ...styles,
-  //     borderColor: isFocused ? "black" : "white",
-  //   }
-  // },
+  control: (styles) => {
+    return {
+      ...styles,
+      ":hover": {
+        borderColor: "black",
+      },
+      // TODO: when focused, the border color should be black
+      // ":focus": {
+      //   borderColor: "black",
+      // },
+    }
+  },
   option: (styles, { isFocused }) => ({
     ...styles,
     backgroundColor: isFocused ? "rgb(209, 213, 219)" : "white",
