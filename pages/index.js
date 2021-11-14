@@ -35,10 +35,10 @@ function shouldAllowSearch(term, sites) {
 const styleConfig = {
   control: (styles) => ({
     ...styles,
-    borderColor: "rgb(209, 213, 219)",
+    border: "2px solid rgb(209, 213, 219)",
     boxShadow: "none",
     ":hover": {
-      borderColor: "black",
+      border: "2px solid black",
     },
   }),
   option: (styles, { isFocused }) => ({
@@ -103,7 +103,7 @@ export default function Home({ blogs, defaultBlogs }) {
           <div className="relative rounded-md">
             <input
               type="text"
-              className="block w-full rounded-md focus:ring-black focus:border-black border-gray-300"
+              className="block w-full rounded-md focus:border-black border-gray-300 border-2 focus:ring-0"
               ref={inputElement}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
