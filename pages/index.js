@@ -18,7 +18,6 @@ function loadBlogs() {
   return blogs;
 }
 
-// TODO: it makes no sense when sites=[]
 function getGoogleSearchQuery(term, sites) {
   return encodeURI(
     `https://google.com/search?q=${term} (${sites
@@ -27,10 +26,41 @@ function getGoogleSearchQuery(term, sites) {
   );
 }
 
+function buttonDisabled(term, sites) {
+  if (!term) {
+    return true;
+  }
+  if (sites.length == 0) {
+    return true;
+  }
+  return false;
+}
+
+const Button = ({ disabled, query }) => {
+  if (disabled) {
+    return (
+      <button className="text-2xl font-bold text-gray-300 hover:none" disabled>
+        Search !
+      </button>
+    );
+  } else {
+    return (
+      <button
+        className="text-2xl font-bold hover:bg-black hover:text-white"
+        onClick={(e) => window.open(query)}
+      >
+        Search !
+      </button>
+    );
+  }
+};
+
 // TODO: understand and cleanup class names
+// TODO: how to leave comments
 export default function Home({ blogs }) {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedBlogs, setSelectedBlogs] = React.useState(blogs);
+
   return (
     <div className="flex flex-col items-center min-h-screen">
       <Head>
@@ -61,15 +91,13 @@ export default function Home({ blogs }) {
             />
           </div>
           <div className="my-3">
-            <a
-              className="text-blue-600 text-2xl font-bold"
-              href={getGoogleSearchQuery(
+            <Button
+              disabled={buttonDisabled(searchTerm, selectedBlogs)}
+              query={getGoogleSearchQuery(
                 searchTerm,
                 selectedBlogs.map((blog) => blog.value)
               )}
-            >
-              ? Click me!
-            </a>
+            />
           </div>
         </div>
       </main>
