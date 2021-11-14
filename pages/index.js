@@ -67,8 +67,14 @@ const styleConfig = {
 // TODO: how to leave comments
 // TODO: onFocus border color should be black
 // TODO: 2 boxes border are not the same
-export default function Home({ blogs }) {
-  const defaultBlogs = blogs.slice(0, 2);
+export default function Home({ blogs, defaultBlogs }) {
+  // autofocus input, see https://reactjs.org/docs/hooks-reference.html#useref
+  const inputElement = React.useRef(null);
+  React.useEffect(() => {
+    if (inputElement.current) {
+      inputElement.current.focus();
+    }
+  }, []);
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedBlogs, setSelectedBlogs] = React.useState(defaultBlogs);
@@ -78,14 +84,6 @@ export default function Home({ blogs }) {
     searchTerm,
     selectedBlogs.map((blog) => blog.value)
   );
-
-  // autofocus input, see https://reactjs.org/docs/hooks-reference.html#useref
-  const inputElement = React.useRef(null);
-  React.useEffect(() => {
-    if (inputElement.current) {
-      inputElement.current.focus();
-    }
-  }, []);
 
   return (
     <div className="flex flex-col items-center min-h-screen font-mono">
@@ -151,9 +149,11 @@ export default function Home({ blogs }) {
 
 export async function getStaticProps() {
   const blogs = loadBlogs();
+  const defaultBlogs = blogs.slice(0, 2);
   return {
     props: {
-      blogs: blogs,
+      blogs,
+      defaultBlogs,
     },
   };
 }
