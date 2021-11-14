@@ -40,9 +40,9 @@ const styleConfig = {
         borderColor: "black",
       },
       // TODO: when focused, the border color should be black
-      // ":focus": {
-      //   borderColor: "black",
-      // },
+      ":focus": {
+        borderColor: "black",
+      },
     };
   },
   option: (styles, { isFocused }) => ({
@@ -103,10 +103,10 @@ export default function Home({ blogs }) {
             }}
           />
           <p className="my-3 text-3xl font-bold">Do</p>
-          <div className="flex flex-row justify-between border-2 border-gray-300 rounded px-2 py-0.5 h-10 hover:border-black">
+          <div className="relative rounded-md">
             <input
-              className="flex-1 outline-none"
               type="text"
+              className="block w-full rounded-md focus:ring-black focus:border-black border-gray-300"
               ref={inputElement}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -124,7 +124,11 @@ export default function Home({ blogs }) {
                 }
               }}
             />
-            <button>↵</button>
+            <div className="absolute inset-y-0 right-0 flex items-center">
+              <button className="h-full px-1 text-gray-300 rounded-md pointer-events-none">
+                ↵ Enter
+              </button>
+            </div>
           </div>
         </div>
       </main>
