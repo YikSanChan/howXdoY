@@ -7,7 +7,7 @@ import path from "path";
 
 // read blog data from blogs.csv
 function loadBlogs() {
-  const filePath = path.join(process.cwd(), "public", "blogs.csv");
+  const filePath = path.join(process.cwd(), "public", "blogs.txt");
   const fileContents = fs.readFileSync(filePath, "utf8");
   const blogs = fileContents.split("\n").map((s) => {
     const a = s.split(",");
