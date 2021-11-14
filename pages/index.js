@@ -30,6 +30,24 @@ function allowSearch(term, sites) {
   return term && sites.length > 0;
 }
 
+// reference: https://react-select.com/home#custom-styles
+// gray-300 eq rgb(209, 213, 219)
+const styleConfig = {
+  option: (styles, { isFocused }) => {
+    return {
+      ...styles,
+      backgroundColor: isFocused ? "rgb(209, 213, 219)" : "white",
+    };
+  },
+  multiValue: (styles) => {
+    return {
+      ...styles,
+      backgroundColor: "white",
+      border: "1px dotted black",
+    };
+  },
+};
+
 // TODO: understand and cleanup class names
 // TODO: how to leave comments
 // TODO: hover border color should be black
@@ -58,6 +76,7 @@ export default function Home({ blogs }) {
         <div className="w-full">
           <p className="my-3 text-3xl font-bold">How</p>
           <Select
+            styles={styleConfig}
             defaultValue={defaultBlogs}
             isMulti
             name="blogs"
