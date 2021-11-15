@@ -129,12 +129,19 @@ export default function Home({ blogs, defaultBlogs }) {
       </main>
 
       <footer className="flex items-center justify-center w-full h-24 border-t">
-        <p>Built by&nbsp;</p>
+        <p>By&nbsp;</p>
         <a
-          className="flex items-center justify-center text-white bg-black"
+          className="text-white bg-black"
           href="https://twitter.com/yiksanchan"
         >
           @yiksanchan
+        </a>
+        <p>&nbsp;·&nbsp;</p>
+        <a
+          className="text-white bg-black"
+          href="https://github.com/YikSanChan/howXdoY"
+        >
+          Source
         </a>
       </footer>
     </div>
