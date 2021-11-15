@@ -1,19 +1,17 @@
 # How X do Y?
 
-## Motivation
+A minimal site that Googles how selected tech companies design a system. Check [it 👈🏻](howxdoy.vercel.app) out!
 
-I am a software engineer and I love copy-and-paste, from code snippet to system design.
-Usually, I turn to Stack Overflow for code snippets, and browse through
-tech blog posts by different tech companies for system design ideas.
+## Why the project?
 
-Searching on Stack Overflow is simple, however, searching tech blog posts
-among websites is not easy.
+Searching for system design ideas is much harder than finding a code snippet from Stack Overflow. Here is why:
 
-For example, to learn how tech giants build a feature store,
-I google "Uber feature store", "Airbnb feature store", etc.
-It works, but takes me a lot of processing to find the right ones.
+**Google gives you popular (or highly SEO optimized) results, but they are not necessarily the best-written ones.**
 
-Luckily, Google allows us to search across a specified set of domains,
-though with a bit complex syntax.
+But as a software engineer, you know a few tech companies that write better than others. Why not scope the search to find faster?
 
-How-X-Do-Y simplifies this.
+Here comes **How X Do Y**. You just type the search term, select companies of interest, press Enter, done.
+
+## Any suggestions?
+
+Feel free to leave comments at [GitHub issues](https://github.com/YikSanChan/howXdoY/issues) or ping [me](https://twitter.com/yiksanchan) at Twitter.
