@@ -112,6 +112,7 @@ export default function Home({ blogs }) {
           <div className="relative rounded-md">
             <input
               type="text"
+              placeholder={"Try \"recsys\" or \"build system\""}
               className="block w-full rounded-md focus:border-black border-gray-300 border-2 focus:ring-0"
               ref={inputElement}
               value={searchTerm}
