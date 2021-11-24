@@ -5,6 +5,9 @@ import Select from "react-select";
 import fs from "fs";
 import path from "path";
 
+const SELECT_ALL = "All"
+const SELECT_ALL_BLOG = {label: SELECT_ALL, value: ""}
+
 // read blog data from blogs.csv
 function loadBlogs() {
   const filePath = path.join(process.cwd(), "public", "blogs.txt");
@@ -60,7 +63,7 @@ const styleConfig = {
   }),
 };
 
-export default function Home({ blogs, defaultBlogs }) {
+export default function Home({ blogs }) {
   // autofocus input, see https://reactjs.org/docs/hooks-reference.html#useref
   const inputElement = React.useRef(null);
   React.useEffect(() => {
@@ -70,12 +73,12 @@ export default function Home({ blogs, defaultBlogs }) {
   }, []);
 
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [selectedBlogs, setSelectedBlogs] = React.useState(defaultBlogs);
+  const [selectedBlogs, setSelectedBlogs] = React.useState(blogs);
 
   const allowSearch = shouldAllowSearch(searchTerm, selectedBlogs);
   const query = getGoogleSearchQuery(
     searchTerm,
-    selectedBlogs.map((blog) => blog.value)
+    selectedBlogs.map((blog) => blog.value).filter(label => label !== SELECT_ALL)
   );
 
   return (
@@ -91,13 +94,17 @@ export default function Home({ blogs, defaultBlogs }) {
           <p className="my-3 text-3xl font-bold">How</p>
           <Select
             styles={styleConfig}
-            defaultValue={defaultBlogs}
+            defaultValue={[SELECT_ALL_BLOG]}
             isMulti
             name="blogs"
-            options={blogs}
+            options={[SELECT_ALL_BLOG].concat(blogs)}
             classNamePrefix="select"
             onChange={(selected) => {
-              setSelectedBlogs(selected);
+              if (selected.map(b => b.label).includes(SELECT_ALL)) {
+                setSelectedBlogs(blogs)
+              } else {
+                setSelectedBlogs(selected);
+              }
             }}
           />
           <p className="my-3 text-3xl font-bold">Do</p>
@@ -150,11 +157,9 @@ export default function Home({ blogs, defaultBlogs }) {
 
 export async function getStaticProps() {
   const blogs = loadBlogs();
-  const defaultBlogs = blogs.slice(0, 2);
   return {
     props: {
       blogs,
-      defaultBlogs,
     },
   };
 }
