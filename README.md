@@ -13,6 +13,7 @@ But as a software engineer, you know a few tech companies that write better than
 Here comes **How X Do Y**. You just type the search term, select companies of interest, press Enter, done.
 
 ![Preview](preview.png)
+
 ## Any suggestions?
 
 Feel free to leave comments at [GitHub issues](https://github.com/YikSanChan/howXdoY/issues) or ping [me](https://twitter.com/yiksanchan) at Twitter.
