@@ -5,20 +5,14 @@ import Select from "react-select";
 import fs from "fs";
 import path from "path";
 
-const SELECT_ALL = "All"
-const SELECT_ALL_BLOG = {label: SELECT_ALL, value: ""}
+const SELECT_ALL = "All";
+const SELECT_ALL_BLOG = { label: SELECT_ALL, value: "" };
 
 // read blog data from blogs.csv
 function loadBlogs() {
   const filePath = path.join(process.cwd(), "public", "blogs.txt");
   const fileContents = fs.readFileSync(filePath, "utf8");
-  const blogs = fileContents.split("\n").map((s) => {
-    const a = s.split(",");
-    return { label: a[0], value: a[1] };
-  });
-  // order by label
-  blogs.sort((a, b) => a.label.localeCompare(b.label));
-  return blogs;
+  return Object.fromEntries(fileContents.split("\n").map((s) => s.split(",")));
 }
 
 function getGoogleSearchQuery(term, sites) {
@@ -72,13 +66,19 @@ export default function Home({ blogs }) {
     }
   }, []);
 
+  const blogOptions = Object.entries(blogs).map((b) => {
+    return { label: b[0], value: b[1] };
+  });
+
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [selectedBlogs, setSelectedBlogs] = React.useState(blogs);
+  const [selectedBlogs, setSelectedBlogs] = React.useState(blogOptions);
 
   const allowSearch = shouldAllowSearch(searchTerm, selectedBlogs);
   const query = getGoogleSearchQuery(
     searchTerm,
-    selectedBlogs.map((blog) => blog.value).filter(label => label !== SELECT_ALL)
+    selectedBlogs
+      .map((blog) => blog.value)
+      .filter((label) => label !== SELECT_ALL)
   );
 
   return (
@@ -97,11 +97,11 @@ export default function Home({ blogs }) {
             defaultValue={[SELECT_ALL_BLOG]}
             isMulti
             name="blogs"
-            options={[SELECT_ALL_BLOG].concat(blogs)}
+            options={[SELECT_ALL_BLOG].concat(blogOptions)}
             classNamePrefix="select"
             onChange={(selected) => {
-              if (selected.map(b => b.label).includes(SELECT_ALL)) {
-                setSelectedBlogs(blogs)
+              if (selected.map((b) => b.label).includes(SELECT_ALL)) {
+                setSelectedBlogs(blogOptions);
               } else {
                 setSelectedBlogs(selected);
               }
@@ -112,7 +112,7 @@ export default function Home({ blogs }) {
           <div className="relative rounded-md">
             <input
               type="text"
-              placeholder={"Try \"recsys\" or \"build system\""}
+              placeholder={'Try "recsys" or "build system"'}
               className="block w-full rounded-md focus:border-black border-gray-300 border-2 focus:ring-0"
               ref={inputElement}
               value={searchTerm}
