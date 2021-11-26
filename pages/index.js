@@ -17,10 +17,7 @@ function loadBlogs() {
 }
 
 function getGoogleSearchQuery(term, sites) {
-  const domainScope =
-    sites.length === 1
-      ? `site:${sites[0]}`
-      : `(${sites.map((site) => `site:${site}`).join(" OR ")})`;
+  const domainScope = sites.map((site) => `site:${site}`).join(" OR ");
   return encodeURI(`https://google.com/search?q=${term} ${domainScope}`);
 }
 
