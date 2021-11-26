@@ -1,12 +1,13 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import React from "react";
 
 import Select from "react-select";
 import fs from "fs";
 import path from "path";
 
-const SELECT_ALL = "All";
-const SELECT_ALL_BLOG = { label: SELECT_ALL, value: "" };
+const QUERY = "q";
+const ORGS = "orgs";
 
 // read blog data from blogs.csv
 function loadBlogs() {
@@ -57,6 +58,24 @@ const styleConfig = {
   }),
 };
 
+function useQueryParams() {
+  const router = useRouter();
+  return [
+    router.query,
+    function (params) {
+      const url =
+        "?" +
+        Object.keys(params)
+          .map(
+            (key) =>
+              encodeURIComponent(key) + "=" + encodeURIComponent(params[key])
+          )
+          .join("&");
+      router.push(url);
+    },
+  ];
+}
+
 export default function Home({ blogs }) {
   // autofocus input, see https://reactjs.org/docs/hooks-reference.html#useref
   const inputElement = React.useRef(null);
@@ -66,19 +85,19 @@ export default function Home({ blogs }) {
     }
   }, []);
 
-  const blogOptions = Object.entries(blogs).map((b) => {
-    return { label: b[0], value: b[1] };
-  });
-
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [selectedBlogs, setSelectedBlogs] = React.useState(blogOptions);
+  const [queryParams, setQueryParams] = useQueryParams();
+  const searchTerm = queryParams[QUERY] || "";
+  const selectedBlogs = queryParams[ORGS]
+    ? queryParams[ORGS].toLowerCase()
+        .split(",")
+        .filter((name) => blogs.map((b) => b.label).includes(name))
+        .map((name) => blogs.find((b) => b.label === name))
+    : [];
 
   const allowSearch = shouldAllowSearch(searchTerm, selectedBlogs);
   const query = getGoogleSearchQuery(
     searchTerm,
-    selectedBlogs
-      .map((blog) => blog.value)
-      .filter((label) => label !== SELECT_ALL)
+    selectedBlogs.map((b) => b.value.url)
   );
 
   return (
@@ -94,16 +113,21 @@ export default function Home({ blogs }) {
           <p className="my-3 text-3xl font-bold">How</p>
           <Select
             styles={styleConfig}
-            defaultValue={[SELECT_ALL_BLOG]}
+            value={selectedBlogs}
             isMulti
             name="blogs"
-            options={[SELECT_ALL_BLOG].concat(blogOptions)}
+            options={blogs}
+            getOptionLabel={(option) => option.value.display_name}
             classNamePrefix="select"
             onChange={(selected) => {
-              if (selected.map((b) => b.label).includes(SELECT_ALL)) {
-                setSelectedBlogs(blogOptions);
+              if (selected.length === 0) {
+                const q = queryParams[QUERY];
+                setQueryParams({ [QUERY]: q });
               } else {
-                setSelectedBlogs(selected);
+                setQueryParams({
+                  ...queryParams,
+                  [ORGS]: selected.map((b) => b.label).join(","),
+                });
               }
             }}
           />
@@ -116,7 +140,9 @@ export default function Home({ blogs }) {
               className="block w-full rounded-md focus:border-black border-gray-300 border-2 focus:ring-0"
               ref={inputElement}
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setQueryParams({ ...queryParams, [QUERY]: e.target.value });
+              }}
               onKeyPress={(e) => {
                 if (e.key === "Enter" && allowSearch) {
                   window.open(query);
@@ -156,8 +182,15 @@ export default function Home({ blogs }) {
   );
 }
 
+function lowerTrim(s) {
+  return s.replace(/\s+/g, "").toLowerCase();
+}
+
 export async function getStaticProps() {
-  const blogs = loadBlogs();
+  const data = loadBlogs();
+  const blogs = Object.entries(data).map((a) => {
+    return { label: lowerTrim(a[0]), value: { display_name: a[0], url: a[1] } };
+  });
   return {
     props: {
       blogs,
