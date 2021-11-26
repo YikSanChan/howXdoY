@@ -21,8 +21,8 @@ function getGoogleSearchQuery(term, sites) {
   return encodeURI(`https://google.com/search?q=${term} ${domainScope}`);
 }
 
-function shouldAllowSearch(term, sites) {
-  return term && term.length > 2 && sites.length > 0;
+function shouldAllowSearch(term) {
+  return term && term.length > 2;
 }
 
 // reference: https://react-select.com/home#custom-styles
@@ -91,10 +91,11 @@ export default function Home({ blogs }) {
         .map((name) => blogs.find((b) => b.label === name))
     : [];
 
-  const allowSearch = shouldAllowSearch(searchTerm, selectedBlogs);
+  const allowSearch = shouldAllowSearch(searchTerm);
   const query = getGoogleSearchQuery(
     searchTerm,
-    selectedBlogs.map((b) => b.value.url)
+    // nothing selected === all selected
+    (selectedBlogs.length === 0 ? blogs : selectedBlogs).map((b) => b.value.url)
   );
 
   return (
@@ -109,6 +110,7 @@ export default function Home({ blogs }) {
         <div className="w-full">
           <p className="my-3 text-3xl font-bold">How</p>
           <Select
+            placeholder={"Select to scope..."}
             styles={styleConfig}
             value={selectedBlogs}
             isMulti
