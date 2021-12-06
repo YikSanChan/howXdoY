@@ -31,3 +31,4 @@ Meituan,tech.meituan.com
 Gojek,blog.gojek.io
 Datadog,www.datadoghq.com/blog/engineering
 Stripe,stripe.com/blog
+Spotify,https://engineering.atspotify.com
