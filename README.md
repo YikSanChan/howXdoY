@@ -14,6 +14,14 @@ Here comes **How X Do Y**. You just type the search term, select companies of in
 
 ![Preview](preview.png)
 
+## Quickstart
+
+How the industry do recommendation systems? [https://howxdoy.vercel.app/?q=recommendation%20system](https://howxdoy.vercel.app/?q=recommendation%20system) 👈🏻
+
+How Netflix do recommendation systems? [https://howxdoy.vercel.app/?q=recommendation%20system&orgs=netflix](https://howxdoy.vercel.app/?q=recommendation%20system&orgs=netflix) 👈🏻
+
+Who are trying Rust? [https://howxdoy.vercel.app/?q=rust](https://howxdoy.vercel.app/?q=rust) 👈🏻
+
 ## Any suggestions?
 
 Feel free to leave comments at [GitHub issues](https://github.com/YikSanChan/howXdoY/issues) or ping [me](https://twitter.com/yiksanchan) at Twitter.
